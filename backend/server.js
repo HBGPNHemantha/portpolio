@@ -108,26 +108,48 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
-// Start Server
-const PORT = process.env.PORT || 5000;
 
-async function startServer() {
-  try {
-    if (!process.env.MONGO_URI) {
-      throw new Error('MONGO_URI is missing!');
-    }
+// MongoDB Connection
+let connectionPromise = null;
 
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('MongoDB Connected Successfully!');
-
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-
-  } catch (error) {
-    console.error('Server startup error:', error);
-    process.exit(1);
+async function connectDB() {
+  if (mongoose.connection.readyState === 1) {
+    return;
   }
+
+  if (!process.env.MONGO_URI) {
+    throw new Error('MONGO_URI is missing!');
+  }
+
+  if (!connectionPromise) {
+    connectionPromise = mongoose.connect(process.env.MONGO_URI)
+      .then(() => {
+        console.log('MongoDB Connected Successfully!');
+      })
+      .catch((error) => {
+        connectionPromise = null;
+        throw error;
+      });
+  }
+
+  await connectionPromise;
 }
 
-startServer();
+// Local Development Server
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+
+  connectDB()
+    .then(() => {
+      app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+      });
+    })
+    .catch((error) => {
+      console.error('Server startup error:', error);
+      process.exit(1);
+    });
+}
+
+// Export for Netlify Functions
+module.exports = { app, connectDB };

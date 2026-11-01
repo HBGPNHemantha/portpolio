@@ -906,7 +906,9 @@ body.light-theme .experience-description li {
   color: #475569;
 }
 
+
 /* ====== Contact Section ====== */
+
 .contact-section {
   width: 100%;
   padding: 80px 0;
@@ -937,7 +939,8 @@ body.light-theme .experience-description li {
   align-items: start;
 }
 
-/* Left side info cards */
+/* ====== Left Side Contact Information ====== */
+
 .contact-info {
   display: flex;
   flex-direction: column;
@@ -968,6 +971,7 @@ body.light-theme .experience-description li {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .info-card h3 {
@@ -982,7 +986,20 @@ body.light-theme .experience-description li {
   font-size: 0.98rem;
   color: #f8fafc;
   font-weight: 500;
+  overflow-wrap: anywhere;
 }
+
+.info-card a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.info-card a:hover {
+  color: #38bdf8;
+}
+
+/* ====== Social Links ====== */
 
 .social-links-card {
   background-color: #1e293b;
@@ -1001,6 +1018,7 @@ body.light-theme .experience-description li {
 
 .social-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
@@ -1022,7 +1040,8 @@ body.light-theme .experience-description li {
   color: #ffffff;
 }
 
-/* Right side form */
+/* ====== Right Side Contact Form ====== */
+
 .contact-form {
   background-color: #1e293b;
   border: 1px solid #334155;
@@ -1031,6 +1050,7 @@ body.light-theme .experience-description li {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  min-width: 0;
 }
 
 .form-group {
@@ -1047,6 +1067,8 @@ body.light-theme .experience-description li {
 
 .form-group input,
 .form-group textarea {
+  box-sizing: border-box;
+  width: 100%;
   background-color: #0f172a;
   border: 1px solid #334155;
   border-radius: 8px;
@@ -1063,6 +1085,30 @@ body.light-theme .experience-description li {
   border-color: #38bdf8;
   box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
 }
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* ====== Google reCAPTCHA ====== */
+
+.captcha-group {
+  margin-top: 5px;
+}
+
+.recaptcha-wrapper {
+  width: 100%;
+  max-width: 100%;
+  min-height: 78px;
+  overflow: hidden;
+}
+
+.recaptcha-wrapper .g-recaptcha {
+  transform-origin: top left;
+}
+
+/* ====== Submit Button ====== */
 
 .submit-btn {
   width: 100%;
@@ -1082,14 +1128,61 @@ body.light-theme .experience-description li {
   background-color: #1d4ed8;
 }
 
-/* Responsive Styles */
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ====== Responsive Styles ====== */
+
 @media (max-width: 868px) {
   .contact-wrapper {
     grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .contact-info {
+    order: 1;
+  }
+
+  .contact-form {
+    order: 2;
   }
 }
 
-/* Light Theme Support */
+@media (max-width: 480px) {
+  .contact-section {
+    padding: 55px 0;
+  }
+
+  .contact-container {
+    width: 92%;
+  }
+
+  .contact-form {
+    padding: 22px 16px;
+  }
+
+  .info-card {
+    padding: 15px;
+    gap: 12px;
+  }
+
+  .info-card p {
+    font-size: 0.9rem;
+  }
+
+  .recaptcha-wrapper {
+    min-height: 68px;
+  }
+
+  .recaptcha-wrapper .g-recaptcha {
+    transform: scale(0.85);
+  }
+}
+
+/* ====== Light Theme Support ====== */
+
 body.light-theme .contact-section {
   background-color: #f8fafc;
   color: #0f172a;
@@ -1112,11 +1205,23 @@ body.light-theme .form-group label {
   color: #0f172a;
 }
 
+body.light-theme .info-card a {
+  color: #0f172a;
+}
+
+body.light-theme .info-card a:hover {
+  color: #2563eb;
+}
+
 body.light-theme .form-group input,
 body.light-theme .form-group textarea {
   background-color: #f1f5f9;
   border-color: #cbd5e1;
   color: #0f172a;
+}
+
+body.light-theme .social-links-card h3 {
+  color: #64748b;
 }
 
 body.light-theme .social-btn {
@@ -1129,6 +1234,7 @@ body.light-theme .social-btn:hover {
   background-color: #2563eb;
   color: #ffffff;
 }
+
 
 /* ====== Footer Section ====== */
 .footer {

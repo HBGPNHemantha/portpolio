@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import "../App.css";
 
@@ -6,10 +6,17 @@ function Contact() {
   const [loading, setLoading] = useState(false);
   const [captchaValue, setCaptchaValue] = useState(null);
 
+  const captchaRef = useRef(null);
+  const formRef = useRef(null);
+
+  // Local development and Netlify API URL
+  const CONTACT_API_URL = import.meta.env.DEV
+    ? "http://localhost:5000/api/contact"
+    : "/api/contact";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if CAPTCHA is verified
     if (!captchaValue) {
       alert("Please complete the reCAPTCHA verification.");
       return;
@@ -20,32 +27,34 @@ function Contact() {
       email: e.target.email.value,
       subject: e.target.subject.value,
       message: e.target.message.value,
-      captchaValue: captchaValue // Send token to backend
+      captchaValue: captchaValue,
     };
 
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/contact', {
-        method: 'POST',
+      const response = await fetch(CONTACT_API_URL, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
-      
+
       if (response.ok && data.success) {
-        alert('Thank you! Your message has been sent successfully.');
-        e.target.reset();
-        setCaptchaValue(null); // Reset captcha
+        alert("Thank you! Your message has been sent successfully.");
+
+        formRef.current?.reset();
+        captchaRef.current?.reset();
+        setCaptchaValue(null);
       } else {
-        alert('Error: ' + (data.error || 'Something went wrong!'));
+        alert("Error: " + (data.error || "Something went wrong!"));
       }
     } catch (err) {
-      console.error('Error sending message:', err);
-      alert('Failed to connect to the server.');
+      console.error("Error sending message:", err);
+      alert("Failed to connect to the server.");
     } finally {
       setLoading(false);
     }
@@ -54,35 +63,144 @@ function Contact() {
   return (
     <section id="contact" className="contact-section">
       <div className="contact-container">
+
+        {/* Section Heading */}
         <h2 className="section-title">
           Get In <span className="highlight">Touch</span>
         </h2>
+
         <p className="contact-subtitle">
-          I am actively seeking opportunities and research collaborations in AI/ML, Data Science, and Full-Stack Software Engineering. Feel free to reach out!
+          I am actively seeking opportunities and research collaborations
+          in AI/ML, Data Science, and Full-Stack Software Engineering.
+          Feel free to reach out!
         </p>
 
         <div className="contact-wrapper">
-          {/* Left Side: Contact Information (omitted for brevity, keep your info-cards here) */}
 
-          {/* Right Side: Contact Form */}
-          <form className="contact-form" onSubmit={handleSubmit}>
+          {/* LEFT SIDE - CONTACT INFORMATION */}
+          <div className="contact-info">
+
+            {/* Email */}
+            <div className="info-card">
+              <div className="info-icon">📧</div>
+
+              <div>
+                <h3>Email</h3>
+                <p>
+                  <a href="mailto:pasindunetumina2002@gmail.com">
+                    pasindunetumina2002@gmail.com
+                  </a>
+                </p>
+              </div>
+            </div>
+
+            {/* Location */}
+            <div className="info-card">
+              <div className="info-icon">📍</div>
+
+              <div>
+                <h3>Location</h3>
+                <p>Kurunegala, Sri Lanka</p>
+              </div>
+            </div>
+
+            {/* Career Focus */}
+            <div className="info-card">
+              <div className="info-icon">💻</div>
+
+              <div>
+                <h3>Career Focus</h3>
+                <p>AI/ML, Data Science & Full-Stack Development</p>
+              </div>
+            </div>
+
+            {/* Availability */}
+            <div className="info-card">
+              <div className="info-icon">🚀</div>
+
+              <div>
+                <h3>Opportunities</h3>
+                <p>Open to Projects & Collaborations</p>
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="social-links-card">
+              <h3>Connect With Me</h3>
+
+              <div className="social-buttons">
+
+                <a
+                  href="https://github.com/HBGPNHemantha"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-btn"
+                >
+                  GitHub
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/pasindu-netumina-2095b1448/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-btn"
+                >
+                  LinkedIn
+                </a>
+
+              </div>
+            </div>
+
+          </div>
+
+          {/* RIGHT SIDE - CONTACT FORM */}
+          <form
+            className="contact-form"
+            onSubmit={handleSubmit}
+            ref={formRef}
+          >
+
             <div className="form-group">
               <label htmlFor="name">Your Name</label>
-              <input type="text" id="name" name="name" placeholder="John Doe" required />
+
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="John Doe"
+                autoComplete="name"
+                required
+              />
             </div>
 
             <div className="form-group">
               <label htmlFor="email">Your Email</label>
-              <input type="email" id="email" name="email" placeholder="pasindunetumina2002@gmail.com" required />
+
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="pasindunetumina2002@gmail.com"
+                autoComplete="email"
+                required
+              />
             </div>
 
             <div className="form-group">
               <label htmlFor="subject">Subject</label>
-              <input type="text" id="subject" name="subject" placeholder="AI/ML Collaboration" required />
+
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder="AI/ML Collaboration"
+                required
+              />
             </div>
 
             <div className="form-group">
               <label htmlFor="message">Message</label>
+
               <textarea
                 id="message"
                 name="message"
@@ -92,18 +210,32 @@ function Contact() {
               ></textarea>
             </div>
 
-            {/* Google reCAPTCHA Component */}
-            <div className="form-group" style={{ margin: "15px 0" }}>
-              <ReCAPTCHA
-                sitekey="6LdmDQsuAAAAABKcLX_YIHqUixm2Uz6C0qeGT_t9" 
-                onChange={(value) => setCaptchaValue(value)}
-              />
+            {/* Google reCAPTCHA */}
+            <div className="form-group captcha-group">
+              <label>Robot Verification</label>
+
+              <div className="recaptcha-wrapper">
+                <ReCAPTCHA
+                  ref={captchaRef}
+                  sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                  onChange={(value) => setCaptchaValue(value)}
+                  onExpired={() => setCaptchaValue(null)}
+                  onErrored={() => setCaptchaValue(null)}
+                />
+              </div>
             </div>
 
-            <button type="submit" className="btn btn-primary submit-btn" disabled={loading}>
-              {loading ? 'Sending...' : 'Send Message'}
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="btn btn-primary submit-btn"
+              disabled={loading}
+            >
+              {loading ? "Sending..." : "Send Message"}
             </button>
+
           </form>
+
         </div>
       </div>
     </section>
