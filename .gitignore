@@ -32,3 +32,8 @@ backend/node_modules/
 # Environment variables
 frontend/.env
 backend/.env
+
+backend/logs/
+frontend/logs/
+frontend/dist/
+backend/dist/
