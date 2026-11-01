@@ -9,7 +9,13 @@
 [functions]
   directory = "backend/netlify/functions"
   node_bundler = "esbuild"
-  external_node_modules = ["express", "mongoose"]
+  external_node_modules = [
+  "express",
+  "mongoose",
+  "serverless-http",
+  "nodemailer"
+]
+
 
 [[redirects]]
   from = "/api/*"
@@ -21,3 +27,5 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+
