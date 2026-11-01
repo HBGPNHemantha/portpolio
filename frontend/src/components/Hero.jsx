@@ -17,7 +17,7 @@ function Hero(){
 
                     <div className="hero-socials">
                         <a href="https://github.com/HBGPNHemantha" target="_blank" rel="noreferrer">GitHub</a>
-                        <a href="https://www.linkedin.com/in/pasindu-netumina-254a06434/" target="_blank" rel="noreferrer">LinkedIn</a>
+                        <a href="https://www.linkedin.com/in/pasindu-netumina-2095b1448/" target="_blank" rel="noreferrer">LinkedIn</a>
 
                     </div>
                 </div>
