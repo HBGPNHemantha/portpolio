@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const app = express();
@@ -86,19 +87,67 @@ app.post('/api/contact', async (req, res) => {
       });
     }
 
-    const newMessage = new Message({
-      name,
-      email,
-      subject,
-      message
+    
+const newMessage = new Message({
+  name,
+  email,
+  subject,
+  message
+});
+
+// Save message to MongoDB
+await newMessage.save();
+
+let emailSent = false;
+
+try {
+  const gmailUser = process.env.GMAIL_USER;
+  const gmailPassword = process.env.GMAIL_APP_PASSWORD;
+  const receiver =
+    process.env.CONTACT_RECEIVER_EMAIL || gmailUser;
+
+  if (!gmailUser || !gmailPassword || !receiver) {
+    throw new Error('Gmail environment variables are missing!');
+  }
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: gmailUser,
+      pass: gmailPassword.replace(/\s/g, '')
+    }
+  });
+
+  await transporter.sendMail({
+    from: `"Portfolio Contact" <${gmailUser}>`,
+    to: receiver,
+    replyTo: email,
+    subject: `New Portfolio Message: ${subject}`,
+    text: `
+    New message from your Portfolio Website.
+
+    Name: ${name}
+    Email: ${email}
+    Subject: ${subject}
+
+    Message:
+    ${message}
+        `
     });
 
-    await newMessage.save();
+    emailSent = true;
+    console.log('Gmail notification sent successfully!');
+
+    } catch (emailError) {
+    console.error('Gmail notification failed:', emailError);
+    }
 
     res.status(201).json({
-      success: true,
-      message: 'Message sent successfully!'
+    success: true,
+    message: 'Message received successfully!',
+    emailSent
     });
+
 
   } catch (error) {
     console.error(error);

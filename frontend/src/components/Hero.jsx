@@ -1,4 +1,5 @@
 import "../App.css";
+
 function Hero(){
     return(
 
@@ -22,12 +23,11 @@ function Hero(){
                     </div>
                 </div>
                 <div className="hero-image-container">
-                    <img
-                        src="../../public/images/propic.jpg"
-                        alt="Profile picture"
-                        className="hero-image"
-                    />
-
+                <img
+                    src="/images/propic.jpg"
+                    alt="Profile picture"
+                    className="hero-image"
+                />
                 </div>
             </div>
 
