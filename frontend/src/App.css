@@ -1379,3 +1379,172 @@ body.light-theme .footer-socials a:hover {
   background-color: #2563eb;
   color: #ffffff;
 }
+
+
+/* ==========================================
+   Certifications Section Styles (Dark & Light Mode)
+   ========================================== */
+
+.certificates-section {
+  padding: 80px 20px;
+  background-color: #0f172a; /* Default Dark Theme Background */
+  color: #ffffff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.certificates-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.certificates-subtitle {
+  color: #94a3b8;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  font-size: 1.05rem;
+}
+
+/* Grid Layout */
+.certificates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  text-align: left;
+}
+
+/* Card Styling (Default Dark) */
+.certificate-card {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 25px;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.certificate-card:hover {
+  transform: translateY(-5px);
+  border-color: #38bdf8;
+  box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.15);
+}
+
+/* Header inside Card */
+.cert-icon-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.cert-badge-icon {
+  font-size: 1.8rem;
+}
+
+.cert-date {
+  font-size: 0.85rem;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.cert-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #f8fafc;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.cert-issuer {
+  font-size: 0.95rem;
+  color: #38bdf8;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.cert-description {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Action Buttons Area */
+.cert-actions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.cert-link-btn {
+  color: #0284c7; /* Darker blue for light mode clarity, override in dark if needed */
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.88rem;
+  transition: color 0.2s ease;
+}
+
+.cert-link-btn:hover {
+  text-decoration: underline;
+}
+
+.cert-link-btn.verify-btn {
+  color: #059669; /* Soft green */
+}
+
+
+/* ==========================================
+   LIGHT THEME OVERRIDES 
+   (If your body or parent container has class ".light-theme")
+   ========================================== */
+
+.light-theme .certificates-section {
+  background-color: #f8fafc; /* Clean light background */
+  color: #0f172a;           /* Dark text */
+}
+
+.light-theme .certificates-subtitle {
+  color: #475569;
+}
+
+.light-theme .certificate-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.light-theme .certificate-card:hover {
+  border-color: #0284c7;
+  box-shadow: 0 10px 20px -5px rgba(2, 132, 199, 0.15);
+}
+
+.light-theme .cert-date {
+  color: #0284c7;
+  background: rgba(2, 132, 199, 0.1);
+  border: 1px solid rgba(2, 132, 199, 0.2);
+}
+
+.light-theme .cert-title {
+  color: #0f172a;
+}
+
+.light-theme .cert-issuer {
+  color: #0284c7;
+}
+
+.light-theme .cert-description {
+  color: #475569;
+}
+
+.light-theme .section-title {
+  color: #0f172a;
+}

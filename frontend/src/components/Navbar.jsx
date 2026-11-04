@@ -33,7 +33,10 @@ function Navbar(){
                     <a className="navbar-link" href="#skills">Skills</a>
                     <a className="navbar-link" href="#projects">Projects</a>
                     <a className="navbar-link" href="#research">Research</a>
+                    <a className="navbar-link" href="#certificates">Certificates</a>
+                    <a className="navbar-link" href="#experience">Experience</a>
                     <a className="navbar-link" href="#contact">Contact</a>
+                    
                 </div>
                 {/*dark/light toggle btn*/}
                 <button className="theme-toggle-btn" onClick={toggleTheme} aria-label="Toggle Theme">
