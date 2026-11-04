@@ -28,7 +28,7 @@ function Navbar(){
 
                 {/* Navigation links */}
                 <div className="navbar-menu">
-                    <a className="navbar-link" href="#home">Home</a>
+                    <a className="navbar-link" href="#hero">Home</a>
                     <a className="navbar-link" href="#about">About</a>
                     <a className="navbar-link" href="#skills">Skills</a>
                     <a className="navbar-link" href="#projects">Projects</a>
