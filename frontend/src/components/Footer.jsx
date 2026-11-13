@@ -36,7 +36,7 @@ function Footer() {
               GitHub
             </a>
             <a
-              href="https://www.linkedin.com/in/pasindu-netumina-254a06434/"
+              href="https://www.linkedin.com/in/pasindu-netumina-495a1b449/"
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"
